@@ -1,0 +1,38 @@
+Package: dgtcharts
+Title: Graphiques et tableaux à la charte de la Direction générale du Trésor (non officielle)
+Version: 0.1.0
+Authors@R:
+    person("Thomas", "Faria", role = c("aut", "cre"),
+           email = "thomas.faria@dgtresor.gouv.fr")
+Description: Thème ggplot2, palette de couleurs inspirée du Système de design
+    de l'État (DSFR) et police Marianne embarquée, graphiques standardisés
+    statiques et interactifs (ggiraph) et tableaux gt à la charte de la
+    Direction générale du Trésor (non officielle). Développé par le Pôle d'analyse économique
+    du secteur financier (PAESF).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Language: fr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Depends:
+    R (>= 4.1.0)
+Imports:
+    base64enc,
+    dplyr,
+    ggiraph (>= 0.9.0),
+    ggplot2 (>= 4.0.0),
+    glue,
+    gt,
+    htmltools,
+    knitr,
+    purrr,
+    readr,
+    scales,
+    tibble,
+    systemfonts (>= 1.1.0),
+    tidyr,
+    tidyselect
+Suggests:
+    gghighlight,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

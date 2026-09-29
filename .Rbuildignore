@@ -1,0 +1,7 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^\.gitlab-ci\.yml$
+^\.github$
+^_pkgdown\.yml$
+^docs$
