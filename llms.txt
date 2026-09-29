@@ -1,0 +1,156 @@
+# dgtcharts
+
+Graphiques et tableaux à la charte de la **Direction générale du
+Trésor** (non officielle): thème ggplot2, palette inspirée du DSFR,
+police Marianne embarquée, graphiques standardisés statiques et
+interactifs (ggiraph), tableaux gt.
+
+Développé par le PAESF, utilisé pour le *Flash du financement de
+l’économie*.
+
+## Installation
+
+``` r
+
+renv::install("github::thomasfaria/dgtcharts@v0.1.0")
+```
+
+Nécessite **ggplot2 \>= 4.0**. La police Marianne est enregistrée
+automatiquement au chargement du package si elle n’est pas installée sur
+le poste.
+
+## Faire un graphique à la charte
+
+``` r
+
+library(ggplot2)
+library(dgtcharts)
+
+ggplot(economics, aes(date, unemploy / 1000)) +
+  geom_line(colour = DGT_col["bleu_france"]) +
+  theme_DGT() +
+  add_caption(sources = "FRED", last_point = "avril 2015")
+```
+
+## Graphiques standardisés
+
+Les fonctions `plot_*()` prennent le format standardisé des `prep_*()`
+du Flash : `sample` (`time`, `value`, `label`, `tooltip` pour
+l’interactif) et `series_map` (`label`, `color`, `fill` pour les
+barres).
+
+| Famille | Statique | Interactif (HTML) |
+|----|----|----|
+| Lignes (double axe possible) | [`plot_lines()`](https://thomasfaria.github.io/dgtcharts/reference/plot_lines.md) | [`plot_lines_interactive()`](https://thomasfaria.github.io/dgtcharts/reference/plot_lines_interactive.md) |
+| Barres + ligne | [`plot_bar_line()`](https://thomasfaria.github.io/dgtcharts/reference/plot_bar_line.md) | [`plot_bar_line_interactive()`](https://thomasfaria.github.io/dgtcharts/reference/plot_bar_line_interactive.md) |
+| Lignes + aire du total | [`plot_lines_area()`](https://thomasfaria.github.io/dgtcharts/reference/plot_lines_area.md) | [`plot_lines_area_interactive()`](https://thomasfaria.github.io/dgtcharts/reference/plot_lines_area_interactive.md) |
+| Petits multiples | [`plot_lines_facet()`](https://thomasfaria.github.io/dgtcharts/reference/plot_lines_facet.md) | [`plot_lines_facet_interactive()`](https://thomasfaria.github.io/dgtcharts/reference/plot_lines_facet_interactive.md) |
+| Contributions empilées + total | [`plot_contrib()`](https://thomasfaria.github.io/dgtcharts/reference/plot_contrib.md) | [`plot_contrib_interactive()`](https://thomasfaria.github.io/dgtcharts/reference/plot_contrib_interactive.md) |
+
+Dans un document Quarto :
+
+``` r
+
+plot_func <- if (knitr::is_html_output()) plot_lines_interactive else plot_lines
+plot_func(res$sample, res$series_map, sources = res$source, last_point = res$latest_value)
+```
+
+Outils associés :
+[`create_tooltip()`](https://thomasfaria.github.io/dgtcharts/reference/create_tooltip.md),
+[`create_series_map()`](https://thomasfaria.github.io/dgtcharts/reference/create_series_map.md),
+[`calculate_scale_factor()`](https://thomasfaria.github.io/dgtcharts/reference/calculate_scale_factor.md)
+(double axe),
+[`format_date_fr()`](https://thomasfaria.github.io/dgtcharts/reference/format_date_fr.md),
+[`get_latest_date()`](https://thomasfaria.github.io/dgtcharts/reference/get_latest_date.md),
+[`render_interactive()`](https://thomasfaria.github.io/dgtcharts/reference/render_interactive.md)
+(pour vos propres ggplot).
+
+Le bouton « Télécharger les données » ajouté par les versions
+interactives est stylé par l’extension Quarto `thomasfaria/paesf`
+(`website.scss`). Hors de cette extension, il s’affiche sans mise en
+forme.
+
+## Tableaux
+
+[`theme_table_DGT()`](https://thomasfaria.github.io/dgtcharts/reference/theme_table_DGT.md)
+applique la charte à une table gt ;
+[`create_table_standard()`](https://thomasfaria.github.io/dgtcharts/reference/create_table_standard.md)
+construit la table complète à partir de la liste renvoyée par une
+fonction `prep_table_*()` (données, libellés, spanners, formats,
+hiérarchie parent/enfant).
+
+## Tests
+
+``` r
+
+devtools::test()
+```
+
+# Package index
+
+## Charte graphique
+
+- [`theme_DGT()`](https://thomasfaria.github.io/dgtcharts/reference/theme_DGT.md)
+  : Thème ggplot2 à la charte DG Trésor
+- [`DGT_col`](https://thomasfaria.github.io/dgtcharts/reference/DGT_col.md)
+  : Palette de couleurs DG Trésor (inspirée du DSFR)
+
+## Graphiques statiques
+
+- [`plot_lines()`](https://thomasfaria.github.io/dgtcharts/reference/plot_lines.md)
+  : Famille 1 : Graphique lignes
+- [`plot_bar_line()`](https://thomasfaria.github.io/dgtcharts/reference/plot_bar_line.md)
+  : Famille 2 : Graphique barres + ligne avec double axe
+- [`plot_lines_area()`](https://thomasfaria.github.io/dgtcharts/reference/plot_lines_area.md)
+  : Famille 3 : Plusieurs lignes + aire pour le total
+- [`plot_lines_facet()`](https://thomasfaria.github.io/dgtcharts/reference/plot_lines_facet.md)
+  : Famille 6 : Lignes en facets avec highlight (une série mise en
+  couleur par facet, autres en grisé)
+- [`plot_contrib()`](https://thomasfaria.github.io/dgtcharts/reference/plot_contrib.md)
+  : Famille 7 : Barres empilées (contributions) + ligne (variation
+  annuelle totale)
+
+## Graphiques interactifs (HTML)
+
+- [`plot_bar_line_interactive()`](https://thomasfaria.github.io/dgtcharts/reference/plot_bar_line_interactive.md)
+  : Famille 2 : Graphique barres + ligne avec double axe (version
+  interactive)
+- [`plot_contrib_interactive()`](https://thomasfaria.github.io/dgtcharts/reference/plot_contrib_interactive.md)
+  : Famille 6 : Barres empilées (contributions) + ligne (variation
+  annuelle totale) — version interactive
+- [`plot_lines_area_interactive()`](https://thomasfaria.github.io/dgtcharts/reference/plot_lines_area_interactive.md)
+  : Famille 3 : Plusieurs lignes + aire pour le total (version
+  interactive)
+- [`plot_lines_facet_interactive()`](https://thomasfaria.github.io/dgtcharts/reference/plot_lines_facet_interactive.md)
+  : Famille 5 : petits multiples (une série par facette, les autres en
+  fond gris) — version interactive
+- [`plot_lines_interactive()`](https://thomasfaria.github.io/dgtcharts/reference/plot_lines_interactive.md)
+  : Famille 1 : Graphique lignes (version interactive)
+- [`render_interactive()`](https://thomasfaria.github.io/dgtcharts/reference/render_interactive.md)
+  : Wrapper pour rendre les graphiques interactifs en HTML avec ggiraph
+- [`build_data_download_button()`](https://thomasfaria.github.io/dgtcharts/reference/build_data_download_button.md)
+  : Construit un bouton de téléchargement des données sous-jacentes d'un
+  graphique
+
+## Utilitaires pour les graphiques
+
+- [`create_tooltip()`](https://thomasfaria.github.io/dgtcharts/reference/create_tooltip.md)
+  : Fonction helper pour créer des tooltips formatés
+- [`create_series_map()`](https://thomasfaria.github.io/dgtcharts/reference/create_series_map.md)
+  : Cree un tibble de mapping series/labels/couleurs
+- [`add_caption()`](https://thomasfaria.github.io/dgtcharts/reference/add_caption.md)
+  : Ajouter une caption avec sources et dernier point
+- [`calculate_scale_factor()`](https://thomasfaria.github.io/dgtcharts/reference/calculate_scale_factor.md)
+  : Calcule le facteur d'echelle pour les graphiques a double axe
+- [`format_date_fr()`](https://thomasfaria.github.io/dgtcharts/reference/format_date_fr.md)
+  : Formate une date en français
+- [`get_latest_date()`](https://thomasfaria.github.io/dgtcharts/reference/get_latest_date.md)
+  : Formate la date la plus récente dans un jeu de données
+
+## Tableaux
+
+- [`theme_table_DGT()`](https://thomasfaria.github.io/dgtcharts/reference/theme_table_DGT.md)
+  : Thème gt à la charte DG Trésor
+- [`create_table_standard()`](https://thomasfaria.github.io/dgtcharts/reference/create_table_standard.md)
+  : Fonction générique principale de création de table
+
