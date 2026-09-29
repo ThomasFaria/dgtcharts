@@ -9,6 +9,8 @@ Description: Thème ggplot2, palette de couleurs inspirée du Système de design
     statiques et interactifs (ggiraph) et tableaux gt à la charte de la
     Direction générale du Trésor (non officielle). Développé par le Pôle d'analyse économique
     du secteur financier (PAESF).
+URL: https://thomasfaria.github.io/dgtcharts/, https://github.com/ThomasFaria/dgtcharts
+BugReports: https://github.com/ThomasFaria/dgtcharts/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 Language: fr

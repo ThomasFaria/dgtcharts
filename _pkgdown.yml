@@ -1,0 +1,42 @@
+url: https://thomasfaria.github.io/dgtcharts/
+
+lang: fr
+
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#000091"
+
+navbar:
+  structure:
+    right: [search, github]
+
+reference:
+  - title: Charte graphique
+    contents:
+      - theme_DGT
+      - DGT_col
+  - title: Graphiques statiques
+    contents:
+      - plot_lines
+      - plot_bar_line
+      - plot_lines_area
+      - plot_lines_facet
+      - plot_contrib
+  - title: Graphiques interactifs (HTML)
+    contents:
+      - ends_with("_interactive")
+      - render_interactive
+      - build_data_download_button
+  - title: Utilitaires pour les graphiques
+    contents:
+      - create_tooltip
+      - create_series_map
+      - add_caption
+      - calculate_scale_factor
+      - format_date_fr
+      - get_latest_date
+  - title: Tableaux
+    contents:
+      - theme_table_DGT
+      - create_table_standard
